@@ -12,7 +12,7 @@ main() {
 		tmux set-option -g @tmux2k-${plugin}-colors "${plugin_colors[$plugin]}"
     done
 	plugin_path="$(tmux show-env -g TMUX_PLUGIN_MANAGER_PATH | cut -f2 -d=)"
-	source ./${plugin_path}/tmux2k/2k.tmux
+	source ${plugin_path}/tmux2k/2k.tmux
 }
 
 main
