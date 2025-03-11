@@ -10,6 +10,26 @@ exit() {
 	builtin exit $1
 }
 
+make_link() {
+	sf=$1
+	tf=$2
+
+	if [ -f "${tf}" ]; then
+	    if [ -L "${tf}" ]; then
+	        if [ $(readlink "${tf}") = "$sf" ]; then
+	            echo "Symbolic link ${tf} already exists and pointing to right location, skipping."
+	        else
+		        echo "[ERROR] Symbolic link ${tf} already exists and pointing to wrong location, skipping."
+		    fi
+        else
+            echo "[ERROR] File ${tf} already exists and is not a symbolic link, skipping."
+        fi
+	else
+        echo "ln -s ${sf} ${tf}"
+        ln -s ${sf} ${tf}
+	fi	
+}
+
 # listing installed plugins
 if [ -d "$tmux2k_path" ]; then 
 	echo "tmux2k found in $tmux2k_path"
@@ -28,12 +48,17 @@ fi
 echo "Making symbolic links"
 
 for f in `ls ${ak_plugins_path}/plugins`; do
-#	echo "plugins/$f"
-	ln -is ${ak_plugins_path}/plugins/${f} ${tmux2k_path}/plugins/${f}
+	sf=${ak_plugins_path}/plugins/${f}
+	tf=${tmux2k_path}/plugins/${f}
+
+    make_link "${sf}" "${tf}"	
 done
 
 for f in `ls ${ak_plugins_path}/lib`; do
-	ln -is ${ak_plugins_path}/lib/${f} ${tmux2k_path}/lib/${f}
+	sf=${ak_plugins_path}/lib/${f}
+	tf=${tmux2k_path}/lib/${f}
+	
+    make_link "${sf}" "${tf}"	
 done
 
 echo "Done"
