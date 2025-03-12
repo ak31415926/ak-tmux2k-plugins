@@ -6,6 +6,7 @@ tmux2k_path="${plugin_path}tmux2k"
 ak_plugins_path="${plugin_path}ak-tmux2k-plugins"
 
 exit() {
+    echo ""
 	echo "Press ESC to continue"
 	builtin exit $1
 }

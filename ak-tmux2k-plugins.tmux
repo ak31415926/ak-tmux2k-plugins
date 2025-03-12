@@ -4,6 +4,9 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 tmux bind-key S run-shell "$CURRENT_DIR/scripts/install.sh"
 
 declare -A plugin_colors=(
+    ["a_cpu"]="light_green text"
+    ["a_cpu_temp"]="light_purple text"
+    ["a_ram"]="yellow text"
     ["a_uptime"]="light_blue text"
 )
 

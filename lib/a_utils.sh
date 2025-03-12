@@ -4,6 +4,14 @@ round() {
     printf "%.${2}f" "${1}"                                                                                                                                         
 } 
 
+get_decimal_point() {
+# Usage: get_decimal_point locale
+    local decimal_point="."
+    export LC_ALL="$1"
+	printf -v decimal_point "%.1f" "1"
+    echo -n "${decimal_point:1:1}"
+}
+
 get_tmux_option() {
     local option=$1
     local default_value=$2
@@ -16,8 +24,10 @@ get_tmux_option() {
 }
 
 normalize_padding() {
-    percent_len=${#1}
-    max_len=${2:-4}
+    local percent_len=${#1}
+    local max_len=${2:-4}
+    local left_spaces=0
+    local right_spaces=0
     let diff_len=$max_len-$percent_len
     # if the diff_len is even, left will have 1 more space than right
     let left_spaces=($diff_len + 1)/2
@@ -27,7 +37,7 @@ normalize_padding() {
 
 fill_placeholders() {
 # Usage: fill_placeholders formatstring placeholder type value
-	result=$1
+	local result=$1
 	while [[ "$result" =~ \#(.?[[:digit:]]*\.?[[:digit:]]*)(${2}) ]];
 	do
 		tfs="%${BASH_REMATCH[1]}$3"
@@ -40,7 +50,7 @@ fill_placeholders() {
 
 normalize_brackets() {
 # Usage: fill_placeholders formatstring
-	result=$1
+	local result=$1
 	while [[ "$result" =~ \#([1-9][0-9]*)\[([^\]]*)\#\] ]];
 	do
 		content="$(normalize_padding ${BASH_REMATCH[2]} ${BASH_REMATCH[1]})"
