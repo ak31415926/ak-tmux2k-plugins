@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+round() {                                                                                                                                                           
+    printf "%.${2}f" "${1}"                                                                                                                                         
+} 
+
 get_tmux_option() {
     local option=$1
     local default_value=$2
@@ -24,13 +28,13 @@ normalize_padding() {
 fill_placeholders() {
 # Usage: fill_placeholders formatstring placeholder type value
 	result=$1
-	while [[ "$result" =~ \#(.?[[:digit:]]*\.?[[:digit:]]+)(${2}) ]];
+	while [[ "$result" =~ \#(.?[[:digit:]]*\.?[[:digit:]]*)(${2}) ]];
 	do
 		tfs="%${BASH_REMATCH[1]}$3"
-		printf -v val ${tfs} $4
+		printf -v val "${tfs}" "$4"
 		result=${result//${BASH_REMATCH[0]}/$val}
 	done
-	result=${result//\#${2}/${4}}
+	result=${result//\#${2}/"${4}"}
 	echo -n "$result"
 }
 
@@ -44,3 +48,4 @@ normalize_brackets() {
 	done
 	echo -n "$result"
 }
+
