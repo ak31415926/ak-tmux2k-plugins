@@ -42,7 +42,7 @@ main() {
     export LC_ALL="$user_locale"
 
     cpu_load=$(get_load)
-    cpu_load=$(number2locale "\"$cpu_load\"" $user_locale)
+    cpu_load=$(number2locale "$cpu_load" $user_locale)
     cpu_percent=$(get_percent)
     cpu_percent=$(number2locale $cpu_percent $user_locale)
     cpu_opercent=$(round "$cpu_percent" "0")
