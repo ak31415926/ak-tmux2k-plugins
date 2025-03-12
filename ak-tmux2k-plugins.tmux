@@ -11,7 +11,10 @@ declare -A plugin_colors=(
 )
 
 main() {
-    tmux set-option -g @tmux2k-user-locale "$LANG"
+    local user_locale=`tmux show-option -v -g @tmux2k-user-locale`
+    if [ "$user_locale" = "" ]; then
+        tmux set-option -g @tmux2k-user-locale "$LANG"
+    fi
 	for plugin in "${!plugin_colors[@]}"; do
 		tmux set-option -g @tmux2k-${plugin}-colors "${plugin_colors[$plugin]}"
     done
