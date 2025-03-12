@@ -40,13 +40,11 @@ main() {
 	user_locale=$(get_tmux_option "@tmux2k-user-locale" "en_US.UTF-8")
 
     export LC_ALL="$user_locale"
-	printf -v decimal_point "%.1f" "1"
-    decimal_point=${decimal_point:1:1}
 
     cpu_load=$(get_load)
-    cpu_load=${cpu_load//\./$decimal_point}
+    cpu_load=$(number2locale $cpu_load $user_locale)
     cpu_percent=$(get_percent)
-    cpu_percent=${cpu_percent//\./$decimal_point}
+    cpu_percent=$(number2locale $cpu_percent $user_locale)
     cpu_opercent=$(round "$cpu_percent" "0")
     if [ "$cpu_opercent" -lt "10" ]; then
         cpu_opercent="$cpu_percent"

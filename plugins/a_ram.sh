@@ -39,10 +39,8 @@ main() {
    	fs=$(get_tmux_option "@tmux2k-a_ram-format-string" " #3[#p%#]")
 	user_locale=$(get_tmux_option "@tmux2k-user-locale" "en_US.UTF-8")
 
-    decimal_point=$(get_decimal_point "$user_locale")
-
     ram_percent=$(get_percent)
-    ram_percent=${ram_percent//\./$decimal_point}
+    ram_percent=$(number2locale $ram_percent $user_locale)
 
    	fs=$(fill_placeholders "$fs" "p" "g" "$ram_percent")
 
