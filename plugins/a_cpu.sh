@@ -43,6 +43,7 @@ main() {
 
     cpu_load=$(get_load)
     cpu_load=$(number2locale "$cpu_load" $user_locale)
+ 	read cpu_load1 cpu_load2 cpu_load3 <<< ${cpu_load}
     cpu_percent=$(get_percent)
     cpu_percent=$(number2locale $cpu_percent $user_locale)
     cpu_opercent=$(round "$cpu_percent" "0")
@@ -52,7 +53,10 @@ main() {
 	fs=$(fill_placeholders "$fs" "p" "f" "$cpu_percent")
 	fs=$(fill_placeholders "$fs" "P" "g" "$cpu_percent")
 	fs=$(fill_placeholders "$fs" "o" "g" "$cpu_opercent")
-	fs=$(fill_placeholders "$fs" "L" "s" "$cpu_load")
+	fs=$(fill_placeholders "$fs" "l" "s" "$cpu_load")
+	fs=$(fill_placeholders "$fs" "a" "f" "$cpu_load1")
+	fs=$(fill_placeholders "$fs" "b" "f" "$cpu_load2")
+	fs=$(fill_placeholders "$fs" "c" "f" "$cpu_load3")
 
 	fs=$(normalize_brackets "$fs")
 
