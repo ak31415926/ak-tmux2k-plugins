@@ -12,6 +12,12 @@ get_decimal_point() {
     echo -n "${decimal_point:1:1}"
 }
 
+number2locale() {
+# Usage: convert_to_locale number locale
+    local decimal_point=$(get_decimal_point $2)
+    echo -n "${1//\./$decimal_point}"
+}
+
 get_tmux_option() {
     local option=$1
     local default_value=$2
