@@ -1,20 +1,25 @@
----
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+name: Feature Request ✨
+description: Request a new feature or enhancement
+title: "[ENH]: "
+labels: ["enhancement"]
+assignees: ["ak31415926"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please make sure that a duplicate feature request doesn't exist in issues.
+        If you can work on the feature, please assign yourself to the issue.
 
----
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Give us a brief description of the feature or enhancement you would like
+    validations:
+      required: true
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Give us some additional information on the feature request like proposed solutions, links, screenshots, etc.
