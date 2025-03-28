@@ -29,7 +29,7 @@ main() {
 		tmux set-option -g @tmux2k-${plugin}-colors "${plugin_colors[$plugin]}"
     done
 
-    local install_key_bind=$(tmux show-option -gv @tmux2k-akplugins-install-key-binding)
+    local install_key_bind=$(tmux show-option -gv @tmux2k-ak-plugins-install-key-binding)
 
     if [ -n "$install_key_bind" ]; then
         tmux bind-key "$install_key_bind" run-shell "$CURRENT_DIR/scripts/install.sh"
